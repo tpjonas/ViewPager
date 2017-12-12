@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import cimdata.android.dez2017.viewpager.R;
+import cimdata.android.dez2017.viewpager.fragments.ItemViewFragment;
+import cimdata.android.dez2017.viewpager.services.DataService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,17 +42,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final String[] dataList = DataService.fetchData();
+
         PagerAdapter adapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
             // Diese Methode gibt eine Ansicht eines Elementes zurück.
             @Override
             public Fragment getItem(int position) {
-                return null;
+                String title = dataList[position];
+                ItemViewFragment fragment = ItemViewFragment.newInstance(title);
+                return fragment;
             }
 
             @Override
             public int getCount() {
-                return 0;
+                return dataList.length;
             }
         };
 
